@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warren Basterfield | Senior Systems Architect</title>
+    <meta name="description" content="Portfolio of Warren Basterfield - Senior Systems Architect & Hardware Integrator. 30+ Years experience in C#, SQL, and IoT.">
+    
+    <style>
+        /* --- 2025 MODERN CSS VARIABLES --- */
+        :root {
+            --bg-dark: #0f172a;       /* Deep Navy Background */
+            --bg-card: #1e293b;       /* Lighter Navy for Cards */
+            --text-main: #f1f5f9;     /* Off-white text */
+            --text-muted: #94a3b8;    /* Muted grey for secondary text */
+            --accent: #38bdf8;        /* Sky Blue Accent */
+            --accent-hover: #0ea5e9;  /* Darker Blue for hover states */
+            --border: #334155;        /* Subtle border color */
+            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+        
+        /* Remove border from last section */
+        section:last-of-type { border-bottom: none; }
+
+        h1, h2, h3 { color: #fff; margin-bottom: 0.5em; line-height: 1.2; }
+        
+        h2 { 
+            font-size: 2rem; 
+            border-left: 4px solid var(--accent); 
+            padding-left: 15px; 
+            margin-bottom: 40px; 
+        }
+        
+        p { margin-bottom: 1rem; }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 12px 28px;
+            font-weight: 700;
+            border-radius: 6px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+        }
+        .btn:hover { 
+            background: var(--accent-hover); 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+        }
+
+        /* --- HEADER / HERO SECTION --- */
+        header {
+            padding: 80px 0 60px;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, var(--bg-dark) 100%);
+        }
+
+        .profile-img-container {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            overflow: hidden; /* Cuts off the rest of the photo to make a circle */
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+            background-color: #fff; /* White background in case image is transparent */
+            position: relative;
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            
+            /* This ensures the image covers the circle without stretching */
+            object-fit: cover; 
+            
+            /* This anchors the image to the Top Center (where your head is) */
+            object-position: center 15%; 
+            
+            /* OPTIONAL: Un-comment the line below if you want to zoom in closer to your face.
+               Change 1.5 to 2.0 or 1.2 to adjust the zoom level. */
+            /* transform: scale(1.5); transform-origin: top center; */
+        }
+
+        .hero-title { font-size: 3.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+        .hero-subtitle { font-size: 1.5rem; color: var(--accent); margin-bottom: 25px; font-weight: 500; }
+        .hero-bio { 
+            max-width: 750px; 
+            margin: 0 auto 30px; 
+            color: var(--text-muted); 
+            font-size: 1.1rem;
+        }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
+        .skill-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+
+        .skill-card h3 { color: var(--accent); font-size: 1.2rem; margin-bottom: 15px; }
+        
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        
+        .skill-tags span {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* --- PROJECT SHOWCASE --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+        .project-content { padding: 30px; flex-grow: 1; }
+        .project-tech { 
+            font-size: 0.9rem; 
+            color: var(--accent); 
+            margin-bottom: 15px; 
+            font-family: monospace; 
+            text-transform: uppercase;
+        }
+        .project-card h3 { font-size: 1.4rem; }
+
+        /* --- EXPERIENCE TIMELINE --- */
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 50px;
+        }
+        /* Vertical Line */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: -50px;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item:last-child::before { bottom: 0; }
+        
+        /* Dot */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 8px;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
+        }
+
+        .job-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: baseline; 
+            flex-wrap: wrap; 
+            margin-bottom: 15px; 
+        }
+        .job-title { font-size: 1.5rem; font-weight: bold; color: #fff; }
+        .job-company { font-size: 1.2rem; color: var(--accent); margin-right: 15px; }
+        .job-date { 
+            font-family: monospace; 
+            background: #0f172a; 
+            border: 1px solid var(--border);
+            padding: 4px 10px; 
+            border-radius: 4px; 
+            font-size: 0.9rem; 
+            color: var(--text-muted);
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact-box {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1e293b 100%);
+            padding: 50px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            font-size: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .contact-item { display: flex; align-items: center; gap: 10px; }
+
+        /* --- FOOTER --- */
+        footer { 
+            text-align: center; 
+            padding: 40px; 
+            color: var(--text-muted); 
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .job-header { flex-direction: column; gap: 5px; }
+            .contact-details { flex-direction: column; gap: 15px; }
+            .profile-img-container { width: 180px; height: 180px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="profile-img-container">
+                <!-- Ensure your photo is named 'profile.jpg' or 'profile.png' -->
+                <img src="profile.jpeg" alt="Warren Basterfield">
+            </div>
+            <h1 class="hero-title">Warren Basterfield</h1>
+            <p class="hero-subtitle">Senior Systems Architect | Hardware Integration Expert</p>
+            <p class="hero-bio">
+                <strong>30+ Years Experience.</strong> Bridging the gap between Enterprise Software (C#, SQL) and Hardware (IoT, CCTV, Access Control). 
+                Expert in designing mission-critical systems for Logistics, Mining, and Security sectors.
+            </p>
+            <a href="#contact" class="btn">Get in Touch</a>
+        </div>
+    </header>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+        <div class="container">
+            <h2>Technical Arsenal</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Core Development</h3>
+                    <div class="skill-tags">
+                        <span>C# (.NET) - 23 Years</span>
+                        <span>MSSQL - 29 Years</span>
+                        <span>Delphi</span>
+                        <span>Java EE</span>
+                        <span>ANSI C (AVR/PIC)</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Web Technologies</h3>
+                    <div class="skill-tags">
+                        <span>Blazor</span>
+                        <span>ASP.NET</span>
+                        <span>HTML5 / CSS3</span>
+                        <span>Bootstrap</span>
+                        <span>DevExpress</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Hardware Integration</h3>
+                    <div class="skill-tags">
+                        <span>CCTV (RTSP/ONVIF)</span>
+                        <span>Access Control (HID)</span>
+                        <span>Vehicle Tracking (GPS)</span>
+                        <span>IoT / Raspberry Pi</span>
+                        <span>Biometrics</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Architecture & Data</h3>
+                    <div class="skill-tags">
+                        <span>System Architecture</span>
+                        <span>PostgreSQL</span>
+                        <span>RabbitMQ</span>
+                        <span>MSMQ</span>
+                        <span>Rest APIs</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects">
+        <div class="container">
+            <h2>Featured Projects</h2>
+            <p style="color: var(--text-muted); margin-bottom: 40px;">Selected complex integrations delivering high-value business outcomes.</p>
+            
+            <div class="project-grid">
+                <!-- Project 1 -->
+                <article class="project-card">
+                    <div class="project-content">
+                        <h3>DiMOS - Digital Monitoring of Ships</h3>
+                        <p class="project-tech">AI • Sensors • Condition Monitoring</p>
+                        <p><strong>UK Government Funded:</strong> Architected a software platform for the prescriptive maintenance of ship components. Replaced failing AI modules with custom heuristic algorithms to process real-time sensor data for early fault detection.</p>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card">
+                    <div class="project-content">
+                        <h3>Retail NVR & POS Integration</h3>
+                        <p class="project-tech">Java • Linux • RTSP • POS Data</p>
+                        <p>Developed a custom Network Video Recorder that links live Point-of-Sale transaction data with video streams. Allows auditors to query specific transactions (e.g., "Void Item") and instantly play back the relevant footage.</p>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card">
+                    <div class="project-content">
+                        <h3>Mooikloof Security Estate</h3>
+                        <p class="project-tech">LPR • Access Control • CCTV Integration</p>
+                        <p>Integrated License Plate Recognition (LPR) with the estate's access control database. The system tracks vehicle movement to specific units and automatically alerts security of unauthorized zone entries.</p>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="project-card">
+                    <div class="project-content">
+                        <h3>Spar Retail Data Sync</h3>
+                        <p class="project-tech">Database Reverse Engineering • API • ZOHO</p>
+                        <p>Middleware solution that syncs legacy back-end database (Sigma) sales and stock levels with modern cloud platforms. Pushes live data to ZOHO for reporting and WooCommerce for online inventory management.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience">
+        <div class="container">
+            <h2>Professional Experience</h2>
+            
+            <div class="timeline-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Principal Systems Architect</div>
+                        <div class="job-company">Daxicare CC (Independent Consultant)</div>
+                    </div>
+                    <span class="job-date">2014 - Present</span>
+                </div>
+                <p>Specialized consultancy for complex hardware/software integration. Delivering custom solutions for Security Estates, Retail chains (Spar), and International Marine monitoring projects. Full lifecycle development from requirement gathering to deployment.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Senior Developer</div>
+                        <div class="job-company">Orbtech \ Celtrak</div>
+                    </div>
+                    <span class="job-date">2008 - 2014</span>
+                </div>
+                <p>Lead developer for vehicle tracking administration systems. Built the "MEMS" system for Massmart, featuring load planning imports, real-time "Late Delivery" warnings, and geo-fencing alerts.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Senior Developer</div>
+                        <div class="job-company">Lamproom Solutions</div>
+                    </div>
+                    <span class="job-date">2005 - 2007</span>
+                </div>
+                <p>Built asset management tracking systems for mining equipment. Integrated tracking components with mine time-recording and access control to ensure safety compliance (preventing underground access without tested equipment).</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Previous Roles (Hardware & Firmware)</div>
+                        <div class="job-company">Orbtech, IXchange, Saco</div>
+                    </div>
+                    <span class="job-date">1994 - 2005</span>
+                </div>
+                <p>
+                    <strong>Orbtech:</strong> Firmware developer for Buddi vehicle tracking (GPS/3G).<br>
+                    <strong>IXchange:</strong> Head developer for "Order Logic" inventory optimization.<br>
+                    <strong>Saco:</strong> Hardware technician and software development for access control systems.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education">
+        <div class="container">
+            <h2>Education</h2>
+            <div style="background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+                <ul style="line-height: 2;">
+                    <li><strong>Wits Technicon (1992-1993):</strong> Electrical Engineering Light Current T2 & T3 (Telkor Bursary)</li>
+                    <li><strong>Vaal Triangle Technicon (1991):</strong> Electrical Engineering Light Current T1</li>
+                    <li><strong>Matriculation (1990):</strong> English, Afrikaans, Math, Science, Biology, Geography</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" style="border-bottom: none;">
+        <div class="container">
+            <div class="contact-box">
+                <h2>Ready to Optimize Your Systems?</h2>
+                <p>Available for Senior Development roles and System Architecture consulting.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span>📞</span> 079 606 7684
+                    </div>
+                    <div class="contact-item">
+                        <span>✉️</span> wbasterfield@gmail.com
+                    </div>
+                </div>
+
+                <a href="mailto:wbasterfield@gmail.com" class="btn">Send Me an Email</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Warren Basterfield. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
