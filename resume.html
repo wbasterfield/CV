@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warren Basterfield | Principal Solutions Architect & Systems Engineering Executive</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg-primary: #080d1a;
+      --bg-secondary: #0f172a;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --bg-card-hover: rgba(30, 41, 59, 0.9);
+      --border-color: rgba(56, 189, 248, 0.15);
+      --border-accent: rgba(56, 189, 248, 0.4);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #00f2fe;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-emerald: #10b981;
+      --gradient-brand: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #8b5cf6 100%);
+      --gradient-glow: linear-gradient(180deg, rgba(0, 242, 254, 0.15) 0%, rgba(139, 92, 246, 0.05) 100%);
+      --font-main: 'Inter', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Canvas Background */
+    #matrix-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    /* Container & Layout */
+    .container {
+      width: 90%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    /* Navigation Bar */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(8, 13, 26, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 75px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-logo .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--gradient-brand);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #080d1a;
+      font-size: 1.1rem;
+      font-weight: 900;
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-cyan);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gradient-brand);
+      color: #080d1a;
+      box-shadow: 0 4px 20px rgba(0, 242, 254, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 242, 254, 0.55);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-primary);
+      border: 1px solid var(--border-accent);
+    }
+
+    .btn-outline:hover {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 6rem;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--accent-emerald);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 10px var(--accent-emerald);
+      animation: pulseAnimation 2s infinite;
+    }
+
+    @keyframes pulseAnimation {
+      0% { transform: scale(0.95); opacity: 0.7; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.7; }
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+
+    .hero-title span {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      color: var(--accent-cyan);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      min-height: 2rem;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.75rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1.5rem;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .hero-meta-item i {
+      color: var(--accent-cyan);
+    }
+
+    /* Terminal Window Component in Hero */
+    .terminal-card {
+      background: rgba(10, 15, 29, 0.95);
+      border: 1px solid var(--border-accent);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 242, 254, 0.15);
+      font-family: var(--font-mono);
+    }
+
+    .terminal-header {
+      background: #131d36;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .terminal-buttons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .term-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .term-close { background: #ef4444; }
+    .term-min { background: #f59e0b; }
+    .term-max { background: #10b981; }
+
+    .terminal-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .terminal-body {
+      padding: 1.25rem;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+
+    .term-line {
+      margin-bottom: 0.5rem;
+    }
+
+    .term-prompt {
+      color: var(--accent-emerald);
+      font-weight: 600;
+    }
+
+    .term-cmd {
+      color: #fff;
+    }
+
+    .term-output {
+      color: var(--text-secondary);
+      padding-left: 1rem;
+      border-left: 2px solid rgba(56, 189, 248, 0.2);
+      margin: 0.4rem 0 0.8rem 0;
+    }
+
+    .term-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .term-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      width: 100%;
+    }
+
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      max-width: 750px;
+      margin: 0 auto 4rem auto;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+    }
+
+    /* Stats Grid */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: -3rem;
+      margin-bottom: 5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-accent);
+      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15);
+    }
+
+    .stat-number {
+      font-size: 2.75rem;
+      font-weight: 900;
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-mono);
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* Core Competency & Skills Matrix */
+    .skills-filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1.25rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: rgba(0, 242, 254, 0.15);
+      color: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient-brand);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .skill-card:hover::before {
+      opacity: 1;
+    }
+
+    .skill-icon {
+      font-size: 1.75rem;
+      color: var(--accent-cyan);
+      margin-bottom: 1rem;
+    }
+
+    .skill-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+    }
+
+    /* Experience Timeline */
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 20px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 60px;
+      margin-bottom: 3.5rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 11px;
+      top: 5px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 3px solid var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+
+    .timeline-content {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: var(--transition);
+    }
+
+    .timeline-content:hover {
+      border-color: var(--border-accent);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .timeline-meta {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-role {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .timeline-company {
+      color: var(--accent-cyan);
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-purple);
+      background: rgba(139, 92, 246, 0.1);
+      padding: 0.2rem 0.75rem;
+      border-radius: 20px;
+    }
+
+    .timeline-bullets {
+      list-style-type: none;
+      margin-top: 1rem;
+    }
+
+    .timeline-bullets li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .timeline-bullets li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--accent-cyan);
+      font-weight: bold;
+    }
+
+    /* Architectural Case Studies */
+    .case-studies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .case-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .case-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 242, 254, 0.1);
+    }
+
+    .case-badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      color: var(--accent-cyan);
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .case-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #fff;
+    }
+
+    .case-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .case-highlight {
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 3px solid var(--accent-emerald);
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      margin-bottom: 1.5rem;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .case-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    /* Contact Section */
+    .contact-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(8, 13, 26, 0.95));
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      padding: 3.5rem;
+      text-align: center;
+      max-width: 850px;
+      margin: 0 auto;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 242, 254, 0.1);
+    }
+
+    .contact-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .contact-desc {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 2.5rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #10b981;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 9999;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-title {
+        font-size: 2.75rem;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .stats-bar {
+        grid-template-columns: 1fr;
+      }
+      .contact-card {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    /* Print Stylesheet for Direct Resume Printing */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      #matrix-canvas, header, .terminal-card, .skills-filter, .hero-actions, .contact-card, footer {
+        display: none !important;
+      }
+      .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+      }
+      .timeline-content, .skill-card, .case-card {
+        border: 1px solid #ccc !important;
+        background: #fff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+      .timeline::before {
+        background: #999 !important;
+      }
+      .timeline-role, .timeline-company, .case-title {
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Matrix Background Canvas -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#hero" class="brand-logo">
+        <div class="logo-icon">WB</div>
+        <span>WARREN BASTERFIELD</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about"><i class="fa-solid fa-user"></i> About</a></li>
+        <li><a href="#skills"><i class="fa-solid fa-layer-group"></i> Architecture & Skills</a></li>
+        <li><a href="#experience"><i class="fa-solid fa-briefcase"></i> Experience</a></li>
+        <li><a href="#case-studies"><i class="fa-solid fa-cubes"></i> Case Studies</a></li>
+        <li><a href="#contact" class="btn btn-primary" style="color:#080d1a;"><i class="fa-solid fa-paper-plane"></i> Get in Touch</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-badge">
+          <div class="pulse"></div>
+          <span>Available for Principal Architecture & Engineering Leadership</span>
+        </div>
+        <h1 class="hero-title">
+          Engineering Scalable <span>Enterprises & Autonomous Systems</span>
+        </h1>
+        <div class="hero-subtitle">
+          <span id="typewriter-text"></span>
+        </div>
+        <p class="hero-desc">
+          Principal Solutions Architect with 30+ years converting fragmented, high-stakes physical and digital demands into resilient platforms across security, banking, retail, and industrial AI domains.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-envelope"></i> Initiate Engagement</a>
+          <button class="btn btn-outline" onclick="copyContact()"><i class="fa-solid fa-copy"></i> Copy Contact Details</button>
+          <button class="btn btn-outline" onclick="window.print()"><i class="fa-solid fa-file-pdf"></i> Export / Print Resume</button>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-item"><i class="fa-solid fa-location-dot"></i> Las Vegas, NV (Open to Remote / Relocation)[cite: 1]</div>
+          <div class="hero-meta-item"><i class="fa-solid fa-phone"></i> +1 702 890 9489[cite: 1]</div>
+          <div class="hero-meta-item"><i class="fa-solid fa-envelope"></i> warren@apexcoreintegration.com[cite: 1]</div>
+        </div>
+      </div>
+
+      <!-- Live Interactive Terminal -->
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <div class="terminal-buttons">
+            <div class="term-btn term-close"></div>
+            <div class="term-btn term-min"></div>
+            <div class="term-btn term-max"></div>
+          </div>
+          <div class="terminal-title">warren@apex-core-arch: ~</div>
+          <div><i class="fa-solid fa-terminal" style="color:var(--text-muted); font-size:0.75rem;"></i></div>
+        </div>
+        <div class="terminal-body" id="term-body">
+          <div class="term-line"><span class="term-prompt">warren@apex:~$</span> <span class="term-cmd">cat profile.json</span></div>
+          <div class="term-output">
+{<br>
+&nbsp;&nbsp;"name": "Warren Basterfield",<br>
+&nbsp;&nbsp;"title": "Principal Solutions Architect",<br>
+&nbsp;&nbsp;"experience": "30+ Years",<br>
+&nbsp;&nbsp;"primary_stack": ["Go", "C# / .NET", "Blazor", "SQL", "Gemini 2.5 SDK"],<br>
+&nbsp;&nbsp;"specialty": "Distributed Systems, AI Multi-Agents & IoT Telemetry"<br>
+}
+          </div>
+          <div class="term-line"><span class="term-prompt">warren@apex:~$</span> <span class="term-cmd">type 'help' to explore CLI commands</span></div>
+        </div>
+        <div class="terminal-header" style="background:transparent; border-top:1px solid rgba(255,255,255,0.05); padding: 0.5rem 1rem;">
+          <div class="term-input-wrapper" style="width: 100%;">
+            <span class="term-prompt">warren@apex:~$</span>
+            <input type="text" id="term-input" class="term-input" placeholder="Type help, skills, contact, clear..." autocomplete="off" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metric Impact Stats Bar -->
+  <div class="container">
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-number">30+</div>
+        <div class="stat-label">Years Systems Integration Experience[cite: 1]</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Post-Launch Defects in Modern Banking Analytics[cite: 1]</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">200+</div>
+        <div class="stat-label">Real-Time Fleet & Telemetry Nodes Managed[cite: 1]</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">24</div>
+        <div class="stat-label">Autonomous AI Agent Architectures Designed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical Competencies & Architecture Matrix -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// Core Competencies & Tooling</span>
+        <h2 class="section-title">Architectural Mastery</h2>
+        <p class="section-desc">Comprehensive command spanning high-level distributed enterprise topologies down to bare-metal microcontroller firmware and modern AI agent loops.</p>
+      </div>
+
+      <div class="skills-filter">
+        <button class="filter-btn active" data-filter="all">All Disciplines</button>
+        <button class="filter-btn" data-filter="architecture">Enterprise Architecture</button>
+        <button class="filter-btn" data-filter="ai">AI & Agentic Systems</button>
+        <button class="filter-btn" data-filter="backend">Backend & Languages</button>
+        <button class="filter-btn" data-filter="iot">IoT & Physical Integration</button>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Enterprise Architecture -->
+        <div class="skill-card" data-category="architecture">
+          <div class="skill-icon"><i class="fa-solid fa-sitemap"></i></div>
+          <h3 class="skill-title">Enterprise Architecture</h3>
+          <p style="color:var(--text-secondary); font-size:0.9rem;">Modernizing legacy monoliths into event-driven, fault-tolerant microservices with zero downtime[cite: 1].</p>
+          <div class="skill-tags">
+            <span class="tag">Distributed Systems</span>
+            <span class="tag">Platform Modernization</span>
+            <span class="tag">REST API Architecture</span>
+            <span class="tag">Microservices</span>
+          </div>
+        </div>
+
+        <!-- AI & Autonomous Agents -->
+        <div class="skill-card" data-category="ai">
+          <div class="skill-icon"><i class="fa-solid fa-robot"></i></div>
+          <h3 class="skill-title">AI & Agentic Systems</h3>
+          <p style="color:var(--text-secondary); font-size:0.9rem;">Designing autonomous multi-agent suites, ReAct control loops, and structured function calling[cite: 2].</p>
+          <div class="skill-tags">
+            <span class="tag">Google Gen AI SDK</span>
+            <span class="tag">Gemini 2.5 Pro/Flash</span>
+            <span class="tag">ReAct Control Loops</span>
+            <span class="tag">Multi-Agent Swarms</span>
+          </div>
+        </div>
+
+        <!-- Backend & Full-Stack -->
+        <div class="skill-card" data-category="backend">
+          <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
+          <h3 class="skill-title">Backend & Full-Stack</h3>
+          <p style="color:var(--text-secondary); font-size:0.9rem;">High-concurrency runtime services, typed APIs, real-time web dashboards, and data layers[cite: 1, 2].</p>
+          <div class="skill-tags">
+            <span class="tag">Go (Golang)</span>
+            <span class="tag">C# / .NET Core</span>
+            <span class="tag">Blazor Server / WASM</span>
+            <span class="tag">SQL Server & PostgreSQL</span>
+          </div>
+        </div>
+
+        <!-- IoT & Physical Systems -->
+        <div class="skill-card" data-category="iot">
+          <div class="skill-icon"><i class="fa-solid fa-microchip"></i></div>
+          <h3 class="skill-title">IoT, Hardware & Video</h3>
+          <p style="color:var(--text-secondary); font-size:0.9rem;">Bridging physical hardware with cloud infrastructure, video streams, and real-time telemetry[cite: 1].</p>
+          <div class="skill-tags">
+            <span class="tag">RTSP / ONVIF Video</span>
+            <span class="tag">ALPR & Biometrics</span>
+            <span class="tag">ANSI C (AVR / PIC)</span>
+            <span class="tag">GPS / Telemetry</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Experience Timeline -->
+  <section id="experience" style="background: rgba(15, 23, 42, 0.4);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// Track Record of Execution</span>
+        <h2 class="section-title">Leadership & Professional Experience</h2>
+        <p class="section-desc">Over three decades leading direct engineering delivery, stakeholder discovery, and complex platform modernization[cite: 1].</p>
+      </div>
+
+      <div class="timeline">
+        <!-- Apex Core Integration LLC -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-meta">
+              <div>
+                <h3 class="timeline-role">Founder & Principal Solutions Architect</h3>
+                <div class="timeline-company">Apex Core Integration LLC • Las Vegas, NV</div>
+              </div>
+              <span class="timeline-date">2026 – Present</span>
+            </div>
+            <p style="color:var(--text-secondary); margin-bottom: 0.75rem;">
+              Architecting production-grade autonomous B2B AI agent suites and cloud middleware on Google Cloud Run, Go, and Gemini 2.5 SDK[cite: 2, 3].
+            </p>
+            <ul class="timeline-bullets">
+              <li>Engineered catalog of 24 autonomous worker microservices achieving sub-$50/month operational costs per agent[cite: 3].</li>
+              <li>Authored comprehensive Go Gen AI SDK architecture guides for high-throughput ReAct agent loops and parallel errgroup orchestration[cite: 2].</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- DaxiCare CC -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-meta">
+              <div>
+                <h3 class="timeline-role">Principal Systems Architect & Founder</h3>
+                <div class="timeline-company">DaxiCare CC • South Africa / Remote</div>
+              </div>
+              <span class="timeline-date">Jan 2014 – 2026</span>
+            </div>
+            <p style="color:var(--text-secondary); margin-bottom: 0.75rem;">
+              Directed concurrent enterprise engagements resolving non-standard integration challenges across banking, retail, and security estates[cite: 1].
+            </p>
+            <ul class="timeline-bullets">
+              <li>Modernized a legacy banking platform for Standard Bank reporting partners in 6 months with Blazor Server and secure REST APIs with zero post-launch defects[cite: 1].</li>
+              <li>Generated R200K+ software profit by architecting a converged ALPR and access control platform for a 12-lane estate that directly assisted law enforcement interventions[cite: 1].</li>
+              <li>Engineered a custom POS-synchronized NVR platform linking RTSP feeds to till transactions, cutting fraud audit duration from hours to minutes[cite: 1].</li>
+              <li>Constructed IoT dashboards and telemetry alerting for distributed lithium titanate (LTO) battery installations[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Orbtech / Celtrak -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-meta">
+              <div>
+                <h3 class="timeline-role">Senior Software Developer</h3>
+                <div class="timeline-company">Orbtech / Celtrak • South Africa</div>
+              </div>
+              <span class="timeline-date">Jan 2008 – Dec 2013</span>
+            </div>
+            <p style="color:var(--text-secondary); margin-bottom: 0.75rem;">
+              Guided a 5-person engineering team developing mission-critical fleet management and telemetry infrastructure[cite: 1].
+            </p>
+            <ul class="timeline-bullets">
+              <li>Engineered real-time logistics tracking across 200+ vehicles for Massmart distribution network via the MEMS platform[cite: 1].</li>
+              <li>Designed automated geofencing, load planning ingestion, and predictive late-delivery alert algorithms[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Lamproom Solutions & Early Career -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-meta">
+              <div>
+                <h3 class="timeline-role">Senior Developer & Firmware Engineer</h3>
+                <div class="timeline-company">Lamproom Solutions | Saco | IXchange</div>
+              </div>
+              <span class="timeline-date">Prior Experience</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>Built underground mining asset tracking and access safety compliance systems restricting unauthorized personnel access[cite: 1].</li>
+              <li>Architected "Order Logic" inventory forecasting engine optimizing client purchasing cycles and stock-holding costs.</li>
+              <li>Programmed low-level GPS and 3G vehicle telemetry firmware in ANSI C across AVR and PIC microcontrollers[cite: 1].</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architectural Case Studies -->
+  <section id="case-studies">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// Applied Engineering</span>
+        <h2 class="section-title">Featured Solutions</h2>
+        <p class="section-desc">Sample architectures highlighting real-time correlation, edge-to-cloud telemetry, and modern full-stack performance[cite: 1, 5].</p>
+      </div>
+
+      <div class="case-studies-grid">
+        <!-- Case 1 -->
+        <div class="case-card">
+          <div>
+            <span class="case-badge">SECURITY & REAL-TIME ALPR</span>
+            <h3 class="case-title">Converged ALPR & Access Platform</h3>
+            <p class="case-desc">Integrated 12-lane vehicle access hardware with automated optical recognition, correlating access codes to vehicle captures to detect unauthorized movement patterns[cite: 1].</p>
+            <div class="case-highlight">
+              <strong>Impact:</strong> Generated R200K+ profit and provided evidentiary data used in active law enforcement missing person recoveries[cite: 1].
+            </div>
+          </div>
+          <div class="case-tech">
+            <span class="tag">C# / .NET</span>
+            <span class="tag">RTSP</span>
+            <span class="tag">ALPR Engine</span>
+            <span class="tag">SQL Server</span>
+          </div>
+        </div>
+
+        <!-- Case 2 -->
+        <div class="case-card">
+          <div>
+            <span class="case-badge">FINTECH MODERNIZATION</span>
+            <h3 class="case-title">Banking Analytics Engine</h3>
+            <p class="case-desc">Modernized a legacy desktop Windows client into an agile Blazor Server web application with dynamic drag-and-drop report building and secure REST APIs[cite: 1].</p>
+            <div class="case-highlight">
+              <strong>Impact:</strong> Delivered in 6 months despite doubled scope; maintained 100% zero-defect post-launch stability[cite: 1].
+            </div>
+          </div>
+          <div class="case-tech">
+            <span class="tag">Blazor Server</span>
+            <span class="tag">ASP.NET Core</span>
+            <span class="tag">REST APIs</span>
+            <span class="tag">DevExpress</span>
+          </div>
+        </div>
+
+        <!-- Case 3 -->
+        <div class="case-card">
+          <div>
+            <span class="case-badge">COMPUTER VISION & FORENSICS</span>
+            <h3 class="case-title">POS-Synchronized NVR System</h3>
+            <p class="case-desc">Custom Linux-based Java RTSP recorder matched with a C# operator workstation allowing instant forensic search of video footage by till barcode transaction ID[cite: 1, 5].</p>
+            <div class="case-highlight">
+              <strong>Impact:</strong> Slashed retail theft investigation cycles from hours to seconds with synchronized multi-camera playback[cite: 1].
+            </div>
+          </div>
+          <div class="case-tech">
+            <span class="tag">Java RTSP Daemon</span>
+            <span class="tag">C# Client</span>
+            <span class="tag">POS Protocol</span>
+            <span class="tag">Linux</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Engagement Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <h2 class="contact-title">Let's Build Something Exceptional</h2>
+        <p class="contact-desc">
+          Whether you need a Principal Architect to modernize mission-critical systems, lead an engineering team, or deploy autonomous AI agent infrastructure[cite: 1, 2].
+        </p>
+        <div class="contact-links">
+          <a href="mailto:warren@apexcoreintegration.com" class="btn btn-primary">
+            <i class="fa-solid fa-envelope"></i> warren@apexcoreintegration.com
+          </a>
+          <a href="https://linkedin.com/in/warren-basterfield-09363131a" target="_blank" class="btn btn-outline">
+            <i class="fa-brands fa-linkedin"></i> LinkedIn Profile
+          </a>
+          <a href="tel:+17028909489" class="btn btn-outline">
+            <i class="fa-solid fa-phone"></i> +1 (702) 890-9489
+          </a>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-top:1rem;">
+          Based in Las Vegas, NV • Available for Local, Hybrid, and Global Remote Roles[cite: 1]
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Warren Basterfield • Principal Solutions Architect • Apex Core Integration LLC</p>
+      <p style="font-size:0.8rem; margin-top:0.3rem;">Designed with clean native JavaScript, CSS3 animations, and HTML5.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Element -->
+  <div id="toast">Copied to clipboard!</div>
+
+  <script>
+    // 1. Matrix Constellation Canvas Animation
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const particleCount = 45;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.7;
+        this.vy = (Math.random() - 0.5) * 0.7;
+        this.radius = Math.random() * 2 + 1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#00f2fe';
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateNetwork() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(0, 242, 254, ${1 - dist / 130 * 0.9})`;
+            ctx.lineWidth = 0.6;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateNetwork);
+    }
+    animateNetwork();
+
+    // 2. Typewriter Effect
+    const titles = [
+      "Principal Solutions Architect",
+      "Sr. Director of Engineering",
+      "Distributed Systems & IoT Specialist",
+      "Autonomous AI Agent Builder (Go & Gemini)"
+    ];
+    let titleIdx = 0, charIdx = 0, isDeleting = false;
+    const typewriterEl = document.getElementById('typewriter-text');
+
+    function typeWriter() {
+      const currentText = titles[titleIdx];
+      if (isDeleting) {
+        typewriterEl.textContent = currentText.substring(0, charIdx - 1);
+        charIdx--;
+      } else {
+        typewriterEl.textContent = currentText.substring(0, charIdx + 1);
+        charIdx++;
+      }
+
+      let speed = isDeleting ? 40 : 80;
+      if (!isDeleting && charIdx === currentText.length) {
+        speed = 2000;
+        isDeleting = true;
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        titleIdx = (titleIdx + 1) % titles.length;
+        speed = 400;
+      }
+      setTimeout(typeWriter, speed);
+    }
+    typeWriter();
+
+    // 3. Interactive Skills Filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const skillCards = document.querySelectorAll('.skill-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        skillCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 4. Interactive CLI Terminal Emulator
+    const termInput = document.getElementById('term-input');
+    const termBody = document.getElementById('term-body');
+
+    termInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const cmd = termInput.value.trim().toLowerCase();
+        if (!cmd) return;
+
+        // Append Command Line
+        const cmdLine = document.createElement('div');
+        cmdLine.className = 'term-line';
+        cmdLine.innerHTML = `<span class="term-prompt">warren@apex:~$</span> <span class="term-cmd">${cmd}</span>`;
+        termBody.appendChild(cmdLine);
+
+        // Process Command
+        let response = '';
+        switch (cmd) {
+          case 'help':
+            response = 'Available commands: profile, skills, experience, contact, clear, ai-agent, download';
+            break;
+          case 'profile':
+            response = 'Warren Basterfield — Principal Solutions Architect with 30+ years engineering high-concurrency platforms & IoT systems.';
+            break;
+          case 'skills':
+            response = 'Go, C#/.NET, Blazor, SQL Server, Python, Gemini 2.5 SDK, RTSP/ONVIF, Distributed Systems, Microservices.';
+            break;
+          case 'experience':
+            response = 'Apex Core Integration LLC (2026-Pres), DaxiCare CC (2014-2026), Orbtech / Celtrak (2008-2013), Lamproom Solutions.';
+            break;
+          case 'contact':
+            response = 'Email: warren@apexcoreintegration.com | Phone: +1 702 890 9489 | Las Vegas, NV';
+            break;
+          case 'ai-agent':
+            response = 'Apex Core Integration features 24 autonomous B2B microservice agents built on Go and Gemini 2.5 SDK.';
+            break;
+          case 'download':
+            window.print();
+            response = 'Opening print/export dialog for resume...';
+            break;
+          case 'clear':
+            termBody.innerHTML = '';
+            termInput.value = '';
+            return;
+          default:
+            response = `command not recognized: '${cmd}'. Type 'help' for options.`;
+        }
+
+        const outLine = document.createElement('div');
+        outLine.className = 'term-output';
+        outLine.innerHTML = response;
+        termBody.appendChild(outLine);
+
+        termInput.value = '';
+        termBody.scrollTop = termBody.scrollHeight;
+      }
+    });
+
+    // 5. Copy Contact Functionality & Toast Notification
+    function copyContact() {
+      const contactInfo = "Warren Basterfield\nPrincipal Solutions Architect\nEmail: warren@apexcoreintegration.com\nPhone: +1 702 890 9489\nLinkedIn: https://linkedin.com/in/warren-basterfield-09363131a";
+      navigator.clipboard.writeText(contactInfo).then(() => {
+        showToast("Contact details copied to clipboard!");
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
