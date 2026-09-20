@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plug &amp; Play — Retail POS-Integrated Video &amp; NVR Platform | Warren Basterfield</title>
+<meta name="description" content="Warren Basterfield technical engineering portfolio — software, systems integration, AI, computer vision, IoT and real-time systems.">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="index.html">APEX CORE<span>Integration</span></a>
+    <nav class="navlinks">
+      <a href="index.html#work">Case Studies</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="ai.html">AI & Computer Vision</a>
+      <a href="https://apexcoreintegration.com/" target="_blank" rel="noopener">Apex Core Integration ↗</a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+<section class="casehero">
+  <div class="container">
+    <div class="breadcrumb"><a class="back" href="index.html">← Back to portfolio</a></div>
+    <div class="kicker">Case Study 06</div>
+    <h1>Plug &amp; Play — Retail POS-Integrated Video &amp; NVR Platform</h1>
+    <div class="meta">
+      <span class="tag">POS</span><span class="tag">Video</span><span class="tag">NVR</span><span class="tag">Retail integrations</span>
+    </div>
+    <p class="lead">POS • Video • NVR • Retail integrations.</p>
+  </div>
+</section>
+<section class="container casebody">
+  <aside class="aside">
+    <strong>On this page</strong>
+    <a href="#case-study-06-plug-play-integrated-retail-transaction-video-platform">Case Study 06 — Plug &amp; Play Integrated Retail Transaction &amp; Video Platform</a><a href="#the-challenge">The Challenge</a><a href="#the-solution">The Solution</a><a href="#pos-integration">POS Integration</a><a href="#retail-scale-integration">Retail Scale Integration</a><a href="#transaction-data-over-the-video">Transaction Data Over the Video</a><a href="#custom-nvr">Custom NVR</a><a href="#video-playback">Video Playback</a><a href="#live-camera-monitoring">Live Camera Monitoring</a><a href="#flagged-items-real-time-alerts">Flagged Items &amp; Real-Time Alerts</a><a href="#complete-application">Complete Application</a><a href="#playback">Playback</a><a href="#reports">Reports</a><a href="#administration">Administration</a><a href="#cameras">Cameras</a><a href="#stores">Stores</a><a href="#users">Users</a><a href="#initial-setup">Initial Setup</a><a href="#flagged-items">Flagged Items</a><a href="#scale">Scale</a><a href="#engineering-challenges">Engineering Challenges</a><a href="#warren-s-contribution">Warren&#x27;s Contribution</a><a href="#production-history">Production History</a><a href="#business-purpose">Business Purpose</a><a href="#technology">Technology</a><a href="#why-this-project-matters">Why This Project Matters</a>
+  </aside>
+  <article class="casecontent">
+    <h2 id="case-study-06-plug-play-integrated-retail-transaction-video-platform">Case Study 06 — Plug &amp; Play Integrated Retail Transaction &amp; Video Platform</h2><p>Period: 2018–2019 onward
+Client: Plug &amp; Play
+Role: End-to-End System Architect &amp; Developer
+Environment: Retail | POS | Weighing Systems | Video Surveillance | NVR | Loss Prevention | Java | C# | PostgreSQL | Linux | Windows | RTSP | TCP/IP | RS-232</p><h2 id="the-challenge">The Challenge</h2><p>Plug &amp; Play was using an imported, off-the-shelf system that was exceptionally difficult to maintain and difficult to modify when different customer integrations were required.</p><p>The requirement was for a flexible platform that could integrate with existing retail equipment while connecting transaction data directly to the associated video.</p><p>Warren designed and developed the entire system.</p><p>The resulting platform brought together:</p><p>POS tills + retail scales + cameras + video recording + transaction data + search + playback + reporting + alerts</p><p>into a single application.</p><h2 id="the-solution">The Solution</h2><p>Warren built the complete platform end-to-end, including the Linux-based NVR, database, hardware integrations, Windows application, transaction processing, video playback, reporting, administration and loss-prevention functionality.</p><p>The system continuously recorded camera streams while capturing transaction information from retail equipment.</p><p>Operators could then search for and investigate activity using information such as:</p><p>Date and time</p><p>Till number</p><p>Cashier</p><p>Slip number</p><p>Item number</p><p>Scale</p><p>Transaction information</p><p>The system could identify the relevant camera and connect the transaction to the corresponding recorded video.</p><h2 id="pos-integration">POS Integration</h2><p>Every till transaction was captured and stored in a PostgreSQL database.</p><p>The database maintained the relationship between the POS/till and the relevant camera.</p><p>This allowed the operator to move from a transaction record directly to the associated video rather than manually searching through hours of footage.</p><p>The system could therefore answer questions such as:</p><p>What was purchased?
+Which till was involved?
+Which cashier processed it?
+When did it happen?
+What was happening on camera at that exact time?</p><h2 id="retail-scale-integration">Retail Scale Integration</h2><p>The system extended beyond traditional POS tills.</p><p>Warren also integrated weighing equipment used in:</p><p>Butchery</p><p>Deli</p><p>Vegetable departments</p><p>Meat departments</p><p>Different scales provided different interfaces.</p><p>Some communicated through RS-232, requiring RS-232-to-TCP/IP converters.</p><p>Other scales supported TCP/IP directly.</p><p>Warren integrated both approaches into the platform.</p><p>This allowed scale transactions to become part of the same searchable and video-linked environment as conventional till transactions.</p><h2 id="transaction-data-over-the-video">Transaction Data Over the Video</h2><p>One of the most distinctive features of the system was the ability to display transaction information directly over the corresponding camera footage.</p><p>For weighing transactions, the video could display information such as:</p><p>PLU code</p><p>Item number</p><p>Weight</p><p>Tare value</p><p>Price</p><p>Date and time</p><p>Scale identification</p><p>The result was a direct visual connection between the physical transaction and the recorded video.</p><p>An operator could see not only what happened, but also the transaction information generated by the equipment at that moment.</p><h2 id="custom-nvr">Custom NVR</h2><p>Warren developed the NVR himself as part of the overall system.</p><p>The NVR was written in Java and ran on Linux.</p><p>It connected directly to camera RTSP streams and continuously recorded the video to disk.</p><p>The use of RTSP allowed the platform to integrate with existing IP camera infrastructure, predominantly Hikvision and Dahua, rather than requiring a proprietary camera system.</p><h2 id="video-playback">Video Playback</h2><p>The Windows frontend was developed in C#.</p><p>Warren used the VLC C# component to provide video playback within the application.</p><p>Recorded video files were made available through a lightweight HTTP web server.</p><p>The database contained the information needed by the frontend to identify the appropriate recording.</p><p>The resulting workflow was:</p><p>Transaction → PostgreSQL → Camera / Video File → HTTP → VLC → Playback in the C# application</p><p>This meant the operator could search for a transaction and review the corresponding video directly within the same application.</p><h2 id="live-camera-monitoring">Live Camera Monitoring</h2><p>The system also provided real-time camera viewing.</p><p>The frontend displayed the cameras so operators could see the current state of the surveillance system.</p><p>This provided an operational benefit beyond video playback: cameras that were no longer operating could be identified through the live monitoring interface.</p><h2 id="flagged-items-real-time-alerts">Flagged Items &amp; Real-Time Alerts</h2><p>Warren also built functionality for identifying specific items that required additional attention.</p><p>Items could be designated as red-listed/flagged items.</p><p>When a transaction arrived, the system checked the item code.</p><p>If the item was flagged, the system generated a message into the queue.</p><p>The frontend listened for these messages and presented an alert to the operator so the transaction could be reviewed immediately.</p><p>The operator could then investigate the transaction and associated video.</p><p>This transformed the system from a passive recording platform into an active loss-prevention and investigation tool.</p><h2 id="complete-application">Complete Application</h2><p>Warren developed the entire application surrounding the NVR and integrations.</p><p>This included:</p><h2 id="playback">Playback</h2><p>Search and review transaction-associated video.</p><h2 id="reports">Reports</h2><p>Generate reports from the collected transaction and system data.</p><h2 id="administration">Administration</h2><p>Configure and manage the platform.</p><h2 id="cameras">Cameras</h2><p>Manage and monitor camera installations.</p><h2 id="stores">Stores</h2><p>Manage different retail locations.</p><h2 id="users">Users</h2><p>Manage system users and access.</p><h2 id="initial-setup">Initial Setup</h2><p>Configure new installations.</p><h2 id="flagged-items">Flagged Items</h2><p>Configure transactions requiring additional attention.</p><p>The result was a complete retail platform rather than a collection of separate integrations.</p><h2 id="scale">Scale</h2><p>The platform operated at significant scale.</p><p>One deployment supported:</p><p>279 cameras across 21 clients.</p><p>A separate deployment for SPAR and Pick n Pay included:</p><p>199 cameras across 10 stores.</p><p>Continuous video recording created substantial storage requirements.</p><p>The practical storage requirement was approximately one hard drive per 20 cameras, depending on camera resolution.</p><p>This became an important consideration when scaling deployments.</p><h2 id="engineering-challenges">Engineering Challenges</h2><p>One of the significant technical challenges was providing real-time video display without introducing artifacts into the video.</p><p>The system also had to accommodate different camera systems, POS integrations and weighing equipment while maintaining a consistent application experience.</p><p>The scale integrations were particularly dependent on the hardware available at each location, requiring Warren to support both:</p><p class="mono">RS-232 → TCP/IP</p><p>and</p><p>native TCP/IP</p><p>communications.</p><p>The architecture therefore had to deal with different physical interfaces while presenting the data consistently to the application.</p><h2 id="warren-s-contribution">Warren&#x27;s Contribution</h2><p>Warren was responsible for the entire system.</p><p>His work included:</p><p>System architecture</p><p>Java NVR</p><p>Linux deployment</p><p>RTSP camera integration</p><p>PostgreSQL database</p><p>POS integrations</p><p>Retail scale integrations</p><p>RS-232 communications</p><p>RS-232/TCP-IP conversion</p><p>TCP/IP device integration</p><p>Camera/till mapping</p><p>Transaction processing</p><p>Video/transaction correlation</p><p>C# Windows application</p><p>VLC-based video playback</p><p>Live camera monitoring</p><p>Video overlays</p><p>Scale-data overlays</p><p>Flagged-item detection</p><p>Queue-based alerts</p><p>Reporting</p><p>Store management</p><p>Camera management</p><p>User management</p><p>Administration</p><p>Initial system configuration</p><p>This was genuinely end-to-end engineering, from hardware interfaces and network protocols through to the operator-facing application.</p><h2 id="production-history">Production History</h2><p>The first installation went into production in 2019.</p><p>The system remained operational from 2019 through early 2026.</p><p>According to Warren, approximately two years after the first installation, the first problem reported by the client was ultimately traced to a full hard drive rather than a software failure.</p><p>The original source code remains available.</p><h2 id="business-purpose">Business Purpose</h2><p>The platform was designed to help retailers investigate and reduce fraud and shrinkage.</p><p>Instead of requiring an operator to manually search through hours of surveillance footage, the system allowed them to start with a transaction and move directly to the relevant video.</p><p>For weighing environments, the system went even further by placing the transaction information — such as item, weight and price — directly onto the associated video.</p><p>The result was a unified view of:</p><p>Transaction + Equipment + Time + Location + Video</p><h2 id="technology">Technology</h2><p>Languages: Java, C#
+Database: PostgreSQL
+Operating Systems: Linux, Windows
+Video: RTSP, HTTP
+Video Playback: VLC C# component
+Communications: TCP/IP, RS-232
+Messaging: Queue-based alerting
+Hardware: POS systems, retail scales, IP cameras
+Camera Platforms: Predominantly Hikvision and Dahua</p><h2 id="why-this-project-matters">Why This Project Matters</h2><p>This project demonstrates Warren&#x27;s ability to design and build a complex real-world systems integration platform from the ground up.</p><p>He was not simply integrating an existing NVR.</p><p>He built the:</p><p>NVR + database + hardware integrations + POS integrations + scale integrations + transaction processing + video correlation + playback + overlays + alerts + reporting + administration + Windows application.</p><p>The system connected the physical retail environment with software and video evidence in a single operational platform.</p><p>Warren built a system that connected what happened at the till or scale with what happened in front of the camera.</p>
+  </article>
+</section>
+</main>
+
+
+<footer>
+  <div class="container footergrid">
+    <div>
+      <strong>Warren Basterfield</strong><br>
+      <span class="small">Solutions Architecture • Software Engineering • Systems Integration • AI</span>
+    </div>
+    <div class="small">Part of the Apex Core Integration engineering portfolio · Las Vegas, Nevada</div>
+  </div>
+</footer>
+
+
+</body>
+</html>

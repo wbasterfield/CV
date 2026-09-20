@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Investig8-VA — Retail Fraud, Shrinkage &amp; Video Audit | Warren Basterfield</title>
+<meta name="description" content="Warren Basterfield technical engineering portfolio — software, systems integration, AI, computer vision, IoT and real-time systems.">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="index.html">APEX CORE<span>Integration</span></a>
+    <nav class="navlinks">
+      <a href="index.html#work">Case Studies</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="ai.html">AI & Computer Vision</a>
+      <a href="https://apexcoreintegration.com/" target="_blank" rel="noopener">Apex Core Integration ↗</a>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+<section class="casehero">
+  <div class="container">
+    <div class="breadcrumb"><a class="back" href="index.html">← Back to portfolio</a></div>
+    <div class="kicker">Case Study 09</div>
+    <h1>Investig8-VA — Retail Fraud, Shrinkage &amp; Video Audit</h1>
+    <div class="meta">
+      <span class="tag">Video audit</span><span class="tag">Incident workflow</span><span class="tag">POS</span><span class="tag">Reporting</span>
+    </div>
+    <p class="lead">Video audit • Incident workflow • POS • Reporting.</p>
+  </div>
+</section>
+<section class="container casebody">
+  <aside class="aside">
+    <strong>On this page</strong>
+    <a href="#the-business-problem">The Business Problem</a><a href="#the-investigation-workflow">The Investigation Workflow</a><a href="#rules-based-video-auditing">Rules-Based Video Auditing</a><a href="#transaction-video">Transaction + Video</a><a href="#synchronized-video-playback">Synchronized Video Playback</a><a href="#pos-data-integration">POS Data Integration</a><a href="#incident-management">Incident Management</a><a href="#reporting-management-information">Reporting &amp; Management Information</a><a href="#operational-workflow">Operational Workflow</a><a href="#architecture">Architecture</a><a href="#warren-s-contribution">Warren&#x27;s Contribution</a><a href="#scale">Scale</a><a href="#a-different-kind-of-engineering-challenge">A Different Kind of Engineering Challenge</a><a href="#what-warren-did-cleverly">What Warren Did Cleverly</a><a href="#the-bigger-picture">The Bigger Picture</a><a href="#why-this-project-matters">Why This Project Matters</a>
+  </aside>
+  <article class="casecontent">
+    <h2 id="the-business-problem">The Business Problem</h2><p>Investig8-VA provides technology and services designed to help retailers identify and investigate potential fraud, shrinkage and transaction-related losses.</p><p>Investig8 already had its own software responsible for pushing transaction data and associated video into a VPS. Warren&#x27;s role was to build the application layer around that information and turn the raw transaction and video data into a structured investigation and audit system.</p><p>The objective was not simply to show a transaction alongside video. The system needed to allow potential problems to be identified, reviewed, documented, escalated and ultimately acted upon.</p><h2 id="the-investigation-workflow">The Investigation Workflow</h2><p>Investig8 operates a control room where potential fraud and shrinkage transactions are identified. A flagged transaction can then move through a structured review process:</p><ul><li>Potential transaction identified</li><li>Video auditor reviews the transaction</li><li>Auditor completes the required checks</li><li>Findings and notes recorded</li><li>QA reviewer verifies the findings</li><li>Client security or management reviews</li><li>Store owner makes the final decision</li></ul><p>This created a controlled audit trail rather than leaving potentially fraudulent activity as an isolated video clip or transaction record.</p><h2 id="rules-based-video-auditing">Rules-Based Video Auditing</h2><p>One of the key features Warren developed was a configurable rules system for video auditors.</p><p>Different transaction types could have their own audit requirements. For example, for a void transaction, an auditor could be required to check whether the customer was present, whether the cashier was present, whether the store manager was present, and whether the item being voided was actually present.</p><p>The auditor worked through the required checks while reviewing the corresponding video. If something appeared incorrect, the auditor could flag the transaction and add a note. That finding then progressed through the QA and management workflow.</p><h2 id="transaction-video">Transaction + Video</h2><p>A specific client requirement was that transaction information should appear beside the video rather than over the video itself.</p><p>A user could search for a specific transaction or incident, such as a void, select it and play the video covering the entire till slip.</p><p>The POS transaction information was displayed alongside the video, allowing the reviewer to examine the transaction and corresponding footage together.</p><h2 id="synchronized-video-playback">Synchronized Video Playback</h2><p>One of the technically clever elements was keeping the transaction information synchronized with the video.</p><p>When the reviewer skipped forward or backward through the video, Warren&#x27;s software automatically adjusted the transaction or till-slip information to remain synchronized with the video position.</p><p>This meant the reviewer did not have to manually work out where the corresponding transaction information belonged when navigating through the footage.</p><h2 id="pos-data-integration">POS Data Integration</h2><p>The system worked with the full POS transaction information supplied by Investig8. That information could be used to locate transactions, identify potential areas for investigation and connect the transaction record with the associated video.</p><p>The combination of transactional data and video formed the core evidence base used by the audit process.</p><h2 id="incident-management">Incident Management</h2><p>Once an auditor identified a problem, the incident did not simply disappear into a report. It could move through the organisation&#x27;s review hierarchy.</p><ul><li>Review the original auditor&#x27;s findings</li><li>Verify the evidence</li><li>Add additional notes</li><li>Agree with the finding</li><li>Disagree with the finding</li><li>Escalate the matter</li><li>Pass the matter to the appropriate final decision-maker</li></ul><p>This created a structured investigation history around each incident.</p><h2 id="reporting-management-information">Reporting &amp; Management Information</h2><p>The reporting layer was not a generic dashboard. Warren&#x27;s SQL reporting logic tracked the incident lifecycle across retail outlets and managers.</p><p>At the retail-outlet level, the reporting system could calculate:</p><ul><li>Total valid incidents created during a reporting period</li><li>Incidents reviewed by managers</li><li>Incidents not yet reviewed by a manager</li><li>Incidents accepted by managers as valid</li><li>Incidents not accepted by managers</li><li>Warnings arising from accepted incidents</li><li>Dismissible or dismissal-related outcomes</li></ul><p>A separate manager-performance report broke the same activity down by individual manager and retail outlet, allowing management to see how many incidents a particular manager had viewed, accepted or not accepted during a selected period.</p><p>The reporting logic also distinguished between incident creation time and manager review time. This meant the system could answer different operational questions, such as how many incidents were generated versus how many managers had actually reviewed and acted on them.</p><p>The reporting was client-specific, using the logged-in user&#x27;s client context to ensure that results were calculated for the appropriate client and retail environment.</p><h2 id="operational-workflow">Operational Workflow</h2><p>The reporting and workflow together created an end-to-end process:</p><ul><li>Incident created</li><li>Incident validated for the audit workflow</li><li>Manager review assigned or completed</li><li>Manager accepts or rejects the finding</li><li>Disciplinary outcome classified where applicable</li><li>Warning or dismissal-related outcome recorded</li><li>Performance and management reporting produced</li></ul><p>This connected the original transaction and video evidence to the later management and disciplinary process.</p><h2 id="architecture">Architecture</h2><p>The application was built as a Blazor Server application with Microsoft SQL Server. The SQL Server database ran on the same machine as the application.</p><p>Video files were stored on a NAS and mounted into the Windows filesystem, allowing the application to access the stored video as part of the review workflow.</p><h2 id="warren-s-contribution">Warren&#x27;s Contribution</h2><ul><li>Application architecture</li><li>Blazor Server application</li><li>C# development</li><li>Microsoft SQL Server integration</li><li>Rules and analysis functionality</li><li>Video-audit workflow</li><li>Transaction searching</li><li>Video playback</li><li>Transaction/video synchronization</li><li>Auditor workflow</li><li>QA workflow</li><li>Incident management</li><li>Notes and audit history</li><li>Escalation workflow</li><li>Reporting and KPI functionality</li><li>User workflow</li><li>Integration with existing transaction and video data</li></ul><h2 id="scale">Scale</h2><p>The system was operating across approximately 34 clients and generated approximately 22,000 incidents over a six-month period.</p><p>The platform remains operational.</p><h2 id="a-different-kind-of-engineering-challenge">A Different Kind of Engineering Challenge</h2><p>Warren does not identify Investig8 as one of the projects that gave him the greatest technical difficulty. By this stage he already had experience in C#, video systems, POS integration, databases, reporting and application development.</p><p>As a result, the development itself was relatively straightforward for him. That is useful evidence of his ability to take an unfamiliar business workflow, recognize the underlying technical patterns and build the required system without needing to invent an entirely new technology stack.</p><h2 id="what-warren-did-cleverly">What Warren Did Cleverly</h2><p>The standout example is the synchronized transaction and video playback.</p><p>Rather than treating the transaction data and video as separate pieces of information, Warren linked them through the playback position. When a reviewer moved through the video, the transaction information moved with it.</p><p>That reduced the mental effort required from the auditor and made the review process substantially more natural.</p><h2 id="the-bigger-picture">The Bigger Picture</h2><p>Warren did not simply build a video player. He created the application layer that connected:</p><ul><li>POS transactions</li><li>Potential problem identification</li><li>Video evidence</li><li>Rules-based audit</li><li>Auditor findings</li><li>QA verification</li><li>Management review</li><li>Final decision</li><li>Reporting and KPIs</li></ul><p>The result was an operational platform for investigating potential retail fraud and shrinkage rather than simply a collection of transaction records and video files.</p><h2 id="why-this-project-matters">Why This Project Matters</h2><p>Investig8 demonstrates Warren&#x27;s ability to take existing operational data and turn it into a complete business workflow.</p><p>It combines software engineering, video technology, transaction processing, database development, workflow design and reporting into a single operational platform.</p><p>It also reinforces a recurring theme throughout Warren&#x27;s career:</p><p>“I solve problems with technology. Software just happens to be the technology of the day.”</p>
+  </article>
+</section>
+</main>
+
+
+<footer>
+  <div class="container footergrid">
+    <div>
+      <strong>Warren Basterfield</strong><br>
+      <span class="small">Solutions Architecture • Software Engineering • Systems Integration • AI</span>
+    </div>
+    <div class="small">Part of the Apex Core Integration engineering portfolio · Las Vegas, Nevada</div>
+  </div>
+</footer>
+
+
+</body>
+</html>
